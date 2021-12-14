@@ -106,3 +106,16 @@ select empno, ename, job, sal
 from emp
 where job not in ('CLERK', 'ANALYST', 'MANAGER')
 order by empno;
+
+-- 숫자, 날짜, 문자열 타입들은 모두 크기 (대/소) 비교가 가능.
+
+-- '1987/01/01' (포함) 이후에 입사한 사원들의 레코드(모든 컬럼)를 검색.
+-- 입사일 오름차순으로 출력.
+select * from emp
+where hiredate >= '1987/01/01'
+order by hiredate;
+
+-- 'D'보다 큰 이름을 갖는 직원들의 레코드를 검색. 이름의 오름차순으로 출력.
+select * from emp
+where ename > 'D'
+order by ename;
