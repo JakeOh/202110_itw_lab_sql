@@ -47,3 +47,50 @@ select deptno,
 from emp
 group by deptno
 order by deptno;
+
+
+-- 직책별 직원수, 급여의 최댓값, 평균, 최솟값 검색.
+-- 소수점 2자리까지 표시. 직책 오름차순 정렬
+select job, count(*), max(sal), 
+    round(avg(sal), 2) as AVG_SAL,
+    min(sal)
+from emp
+group by job
+order by job;
+
+-- 부서별, 직책별 부서번호, 직책, 직원수, 급여 평균 검색
+-- 소수점 2자리까지 표시. 정렬 순서는 (1) 부서 번호 (2) 직책 오름차순
+select deptno, job, count(*), round(avg(sal), 2)
+from emp
+group by deptno, job
+order by deptno, job;
+
+-- 입사연도별 사원수 검색. (힌트) to_char(날짜, 포맷) 이용
+select to_char(hiredate, 'YYYY') as YEAR, count(*) as COUNT
+from emp
+group by to_char(hiredate, 'YYYY')
+order by YEAR;
+-- select 절에서 만든 별명은 where, group by, having에서는 사용할 수 없고,
+-- order by에서만 사용 가능!
+
+/* SELECT 구문 순서
+select 컬럼, ...
+from 테이블
+where (그룹을 묶기 전에 검사할) 조건식
+group by 그룹을 묶어줄 컬럼, ...
+having 그룹을 묶은 다음에 검사할 조건식
+order by 출력 순서를 설정할 컬럼, ...;
+*/
+
+-- 부서별 부서 번호, 급여 평균을 검색.
+-- 부서별 급여 평균이 2000 이상인 부서들만 출력.
+-- 부서 번호 오름차순으로 정렬 출력.
+select deptno, avg(sal)
+from emp
+group by deptno
+having avg(sal) >= 2000
+order by deptno;
+
+
+
+
