@@ -63,7 +63,8 @@ select *
 from emp
 where (deptno, sal) in (
     select deptno, min(sal) from emp group by deptno
-);
+)
+order by deptno;
 
 -- 각 부서에서 급여가 가장 많은 직원들의 레코드를 검색
 select *
@@ -71,15 +72,54 @@ from emp
 where (deptno, sal) in (
     select deptno, max(sal) from emp
     group by deptno
-);
+)
+order by deptno;
 
 -- SCOTT과 같은 급여를 받는 직원들의 이름과 급여를 검색
+select ename, sal
+from emp
+where sal = (select sal from emp where ename = 'SCOTT');
 
 -- 위 결과에서 SCOTT은 제외하고 출력
+select ename, sal
+from emp
+where sal = (select sal from emp where ename = 'SCOTT')
+    and ename != 'SCOTT';
 
 -- ALLEN보다 늦게 입사한 직원들의 이름, 입사날짜를 최근 입사일부터 출력
+select ename, hiredate
+from emp
+where hiredate > (
+    select hiredate from emp where ename = 'ALLEN'
+)
+order by hiredate;
 
 -- 매니저가 KING인 직원들의 사번, 이름을 검색.
+select empno, ename
+from emp
+where mgr = (
+    select empno from emp where ename = 'KING' -- KING의 사번
+);
 
 -- DALLAS에서 근무하는 직원들의 이름, 급여, 부서번호를 검색. 
 -- (힌트) emp, dept 테이블을 사용.
+select ename, sal, deptno
+from emp
+where deptno = (
+    -- dallas에 있는 부서의 부서 번호
+    select deptno from dept where loc = 'DALLAS'
+);
+
+-- 다중행 서브쿼리에서 any와 all
+-- any: 여러개들 중에서 적어도 하나
+-- all: 여러개 모두
+select sal from emp where deptno = 10;  -- 10번 부서 직원들의 급여(들)
+select * from emp
+where sal < all (
+    select sal from emp where deptno = 10
+);
+
+select * from emp
+where sal < any (
+    select sal from emp where deptno = 10
+);
