@@ -108,5 +108,8 @@ commit;
 -- 테이블 삭제: 
 -- truncate table: 테이블의 모든 레코드(행)가 삭제가 되고, 테이블 이름만 남아 있는 경우.
 -- drop table: 테이블 자체가 삭제.
+truncate table students3;
+select * from students3;
 
-
+select * from students2;
+drop table students2;

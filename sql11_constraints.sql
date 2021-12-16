@@ -118,4 +118,4 @@ insert into ex_emp values (100, 'abc', 10);
 insert into ex_emp values (200, '홍길동', 20); -- 성공
 insert into ex_emp values (300, '오쌤', 30); -- 실패
 
-
+commit;
