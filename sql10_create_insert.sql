@@ -49,3 +49,19 @@ insert into students (sname, birthday, sid)
 values ('강병주', '2020/12/15', 1003);
 
 commit; -- 작업 내용(insert 3개)를 DB에 영구 저장
+
+-- students와 똑같은 모양의 테이블 students2를 생성
+create table students2 (
+    sid         number(4),
+    sname       varchar2(10 char),
+    birthday    date
+);
+
+desc students2;
+
+select * from students2;
+
+-- students 테이블의 모든 행들을 students2 테이블 삽입(insert)
+-- insert-select 구문
+insert into students2
+select * from students;
