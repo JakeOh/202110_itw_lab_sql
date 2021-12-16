@@ -94,6 +94,16 @@ from (
     group by department_id
 ) t;
 
+-- (3)
+with t as (
+    select department_id, avg(salary) as AVG_SALARY 
+    from employees 
+    group by department_id
+)
+select t.department_id, round(t.AVG_SALARY, 1)
+from t
+where t.avg_salary = (select max(t.avg_salary) from t);
+
 -- 11. 사번, 직원이름, 국가이름, 급여 검색.
 select e.employee_id, e.last_name, c.country_name, e.salary
 from employees e
