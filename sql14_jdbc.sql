@@ -26,6 +26,20 @@ values ('새 글 작성 테스트', '안녕하세요... 블로그 첫 작성글�
 insert into blogs (title, content)
 values ('두번째 작성글', 'Hello, This is my second blog content...');
 
+insert into blogs (title, content)
+values ('test3', 'test content 3....');
+
 select * from blogs;
 
 commit;
+
+UPDATE blogs 
+SET title = 'title 변경', content = 'Hello, 첫번째 변경 테스트...', update_time = sysdate 
+WHERE blog_no = 1;
+
+commit;
+
+DELETE FROM blogs WHERE blog_no = 6;
+select * from blogs;
+rollback;
+select * from blogs;
